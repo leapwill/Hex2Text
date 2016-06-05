@@ -10,26 +10,15 @@ namespace Hex2Text
         {
             while (true)
             {
+                //get input and make usable
                 Console.WriteLine("Enter your hex codes, each character separated by a space: ");
-                
-                int readLineBuffer = 4094;
-                Stream inputStream = Console.OpenStandardInput(readLineBuffer);
-                byte[] inputBytes = new byte[readLineBuffer];
-                int outputLength = inputStream.Read(inputBytes, 0, readLineBuffer);
-                string input = new string(Encoding.UTF8.GetChars(inputBytes, 0, outputLength));
-
-
+                Console.SetIn(new StreamReader(Console.OpenStandardInput(8192)));
+                string input = Console.ReadLine();
                 string[] hexIn = input.Split(' ');
-
-                string hexDebug = "";
-                for (int i = 0; i < hexIn.Length; i++)
-                {
-                    hexDebug += hexIn[i] + "-";
-                }
-                Console.WriteLine(hexDebug);
 
                 try
                 {
+                    //do conversion
                     for (int i = 0; i < hexIn.Length; i++)
                     {
                         //Console.Write("\n" + hexIn[i] + " = ");
@@ -39,7 +28,7 @@ namespace Hex2Text
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("\nIt appears your input was in an invalid format. Verify correctness and try again.");
+                    Console.WriteLine("\nIt appears your input is in an invalid format. Verify correctness and try again.");
                 }
                 catch (Exception)
                 {
